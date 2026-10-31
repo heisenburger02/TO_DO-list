@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10111b" />
+    <meta
+      name="description"
+      content="A calm, colorful space to plan your day and get things done."
+    />
+    <title>Daylight — your to-do list</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Task navigation">
+        <a class="brand" href="#" aria-label="Daylight home">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span>daylight<span class="brand-period">.</span></span>
+        </a>
+
+        <div class="sidebar-label">YOUR SPACE</div>
+        <nav class="nav-list" aria-label="Views">
+          <button class="nav-item is-active" data-view="all" type="button">
+            <span class="nav-icon" aria-hidden="true">▤</span>
+            <span>All tasks</span>
+            <span class="nav-count" id="all-count">0</span>
+          </button>
+          <button class="nav-item" data-view="today" type="button">
+            <span class="nav-icon" aria-hidden="true">◷</span>
+            <span>Today</span>
+            <span class="nav-count" id="today-count">0</span>
+          </button>
+          <button class="nav-item" data-view="upcoming" type="button">
+            <span class="nav-icon" aria-hidden="true">▦</span>
+            <span>Upcoming</span>
+            <span class="nav-count" id="upcoming-count">0</span>
+          </button>
+          <button class="nav-item" data-view="completed" type="button">
+            <span class="nav-icon" aria-hidden="true">✓</span>
+            <span>Completed</span>
+            <span class="nav-count" id="completed-count">0</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-label category-label">CATEGORIES</div>
+        <nav class="nav-list category-list" aria-label="Categories">
+          <button class="nav-item category-item" data-category="Work" type="button">
+            <span class="category-dot work-dot"></span><span>Work</span>
+            <span class="nav-count" id="category-work">0</span>
+          </button>
+          <button class="nav-item category-item" data-category="Personal" type="button">
+            <span class="category-dot personal-dot"></span><span>Personal</span>
+            <span class="nav-count" id="category-personal">0</span>
+          </button>
+          <button class="nav-item category-item" data-category="Study" type="button">
+            <span class="category-dot study-dot"></span><span>Study</span>
+            <span class="nav-count" id="category-study">0</span>
+          </button>
+        </nav>
+
+        <section class="sidebar-progress" aria-label="Today's progress">
+          <div class="progress-heading">
+            <span>Today's progress</span>
+            <span class="progress-sparkle" aria-hidden="true">✦</span>
+          </div>
+          <div class="progress-number"><span id="progress-done">0</span><span class="progress-divider"> / </span><span id="progress-total">0</span></div>
+          <div class="progress-track"><span id="progress-fill"></span></div>
+          <p id="progress-caption">A fresh start. You’ve got this!</p>
+        </section>
+
+        <div class="sidebar-footer">
+          <span class="footer-sun" aria-hidden="true">☼</span>
+          <span>Small steps, brighter days.</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="date-line"><span class="date-dot"></span><span id="today-date"></span></div>
+          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+            <span id="theme-icon" aria-hidden="true">☼</span>
+          </button>
+        </header>
+
+        <section class="welcome">
+          <div>
+            <p class="eyebrow">YOUR DAY, YOUR PACE</p>
+            <h1 id="greeting">Make today <span>a good one.</span></h1>
+            <p class="welcome-subtitle">A little progress adds up. What’s on your mind?</p>
+          </div>
+          <div class="welcome-art" aria-hidden="true">
+            <span class="art-orbit orbit-one"></span>
+            <span class="art-orbit orbit-two"></span>
+            <span class="art-star">✦</span>
+            <span class="art-sun"></span>
+            <span class="art-sparkle sparkle-one">✧</span>
+            <span class="art-sparkle sparkle-two">·</span>
+          </div>
+        </section>
+
+        <section class="quick-add-panel" aria-label="Add a task">
+          <form id="task-form" autocomplete="off">
+            <div class="quick-add-top">
+              <span class="add-plus" aria-hidden="true">＋</span>
+              <label class="visually-hidden" for="task-title">Task name</label>
+              <input id="task-title" name="title" maxlength="120" placeholder="Add a task to your day..." required />
+            </div>
+            <label class="visually-hidden" for="task-notes">Notes (optional)</label>
+            <input id="task-notes" class="notes-input" name="notes" maxlength="240" placeholder="Add a little detail (optional)" />
+            <div class="form-controls">
+              <label class="select-wrap" aria-label="Category">
+                <span class="control-icon category-control-icon" aria-hidden="true">●</span>
+                <select id="task-category" name="category">
+                  <option value="Personal">Personal</option>
+                  <option value="Work">Work</option>
+                  <option value="Study">Study</option>
+                </select>
+              </label>
+              <label class="select-wrap priority-wrap" aria-label="Priority">
+                <span class="control-icon priority-control-icon" aria-hidden="true">⚑</span>
+                <select id="task-priority" name="priority">
+                  <option value="medium">Medium priority</option>
+                  <option value="high">High priority</option>
+                  <option value="low">Low priority</option>
+                </select>
+              </label>
+              <label class="date-wrap" aria-label="Due date">
+                <span class="control-icon" aria-hidden="true">▣</span>
+                <input id="task-date" name="dueDate" type="date" />
+              </label>
+              <div class="form-spacer"></div>
+              <button id="cancel-edit" class="cancel-button" type="button" hidden>Cancel</button>
+              <button id="submit-task" class="add-button" type="submit"><span id="submit-icon" aria-hidden="true">＋</span><span id="submit-label">Add task</span></button>
+            </div>
+          </form>
+        </section>
+
+        <section class="tasks-section" aria-labelledby="tasks-heading">
+          <div class="section-heading">
+            <div>
+              <h2 id="tasks-heading">All tasks <span class="heading-count" id="heading-count">0</span></h2>
+              <p id="section-subtitle">Everything you want to get done.</p>
+            </div>
+            <div class="task-tools">
+              <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <span class="visually-hidden">Search tasks</span>
+                <input id="task-search" type="search" placeholder="Search tasks..." />
+              </label>
+              <label class="sort-box">
+                <span class="visually-hidden">Sort tasks</span>
+                <select id="task-sort">
+                  <option value="smart">Sort: Smart</option>
+                  <option value="date">Due date</option>
+                  <option value="priority">Priority</option>
+                  <option value="newest">Recently added</option>
+                  <option value="alphabetical">Alphabetical</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div id="task-list" class="task-list" aria-live="polite"></div>
+          <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-illustration" aria-hidden="true"><span>✦</span></div>
+            <h3 id="empty-title">A little room to breathe.</h3>
+            <p id="empty-message">Add your first task above and make it happen.</p>
+            <button id="empty-add" class="text-button" type="button">＋ Add a task</button>
+          </div>
+          <div class="list-footer">
+            <span id="list-summary">You’re doing great ✨</span>
+            <button id="clear-completed" class="clear-button" type="button" disabled>Clear completed</button>
+          </div>
+        </section>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+  </body>
+</html>
